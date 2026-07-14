@@ -14,7 +14,10 @@
 ## 3. 目录结构索引 (Directory Index)
 - `/docs/raw_materials/` : 存放输入的原始PPT、PDF报告、网页快照等素材。
 - `/docs/outputs/`      : 存放生成的思维导图、研究大纲、报告草稿及终稿。
-- `/skills/`            : 存放具体的任务流程定义、Prompt模板、工具调用逻辑（具体行为以此目录为准）。
+- `/docs/outputs/knowledge_base/` : skill 的持久化记忆层，存放结构化知识库条目 (`kb_*.md`) 及裁决变更日志 (`kb_delta_*.md`)。
+- `.claude/skills/input-knowledge-evolution/` : 输入与知识演进 skill——素材摄取、结构化提取、新旧比对纠偏。
+- `.claude/skills/synthesis-output-generation/` : 综合与研究输出 skill——按需梳理思路、构建大纲、撰写报告。
+- `.claude/skills/strict-executor/` : 范围控制 skill——禁止范围蔓延，原子化交付。
 
 ## 4. 基础交互规范 (Interaction Protocol)
 - 在接收到任何大型研究任务（如大纲梳理、报告撰写）时，默认应先进入 **Plan Mode (规划模式)**，得到确认后方可进入执行。
