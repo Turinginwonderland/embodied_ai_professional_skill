@@ -16,5 +16,8 @@ __pycache__/
 # MCP 配置文件（含 API Key）
 .mcp.json
 
+# 环境变量（含 API Key）
+.env
+
 # 大模型输出临时缓存（如有）
 docs/outputs/**/_draft/
