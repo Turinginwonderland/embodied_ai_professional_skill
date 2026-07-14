@@ -13,5 +13,8 @@ __pycache__/
 .claude/**/*.local.json
 .claude/sh/
 
+# MCP 配置文件（含 API Key）
+.mcp.json
+
 # 大模型输出临时缓存（如有）
 docs/outputs/**/_draft/
