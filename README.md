@@ -24,16 +24,47 @@ Slash 命令（`commands/` 下）：
 
 ## 安装
 
+通过 marketplace 模式安装——这是团队成员从任何位置 clone 仓库后都能用的标准流程：
+
 ```bash
-# Claude Code 内
+# 1. 把本仓库注册为 marketplace（指向 GitHub 仓库的 manifest）
+/plugin marketplace add Turinginwonderland/embodied-ai-professional-skill
+
+# 2. 从 marketplace 装 plugin
 /plugin install embodied-ai-research
 ```
 
-安装后还需：
-1. **设置 API key**：export `FIRECRAWL_API_KEY=fc-...`（每个使用者自己注册，不要互相借用）
-2. **准备知识库目录**（二选一）：
+**为什么不直接用 `/plugin install <路径>`**：直接 install 对路径结构要求严格，且每次都得带具体路径。marketplace 模式一次注册、永久可用，团队成员从哪个目录 clone 都行。
+
+**本地 clone 仓库后也能用**：即使你只是想本地试用而不准备 push 到 GitHub，也建议先在 GitHub 上 fork 一份（个人私有仓库也行），然后用上面两条命令安装。这样 marketplace 模式不依赖你的本地路径，迁移/重装都更简单。
+
+### 安装后还需设置
+
+1. **API key**：`export FIRECRAWL_API_KEY=fc-...`（每个使用者自己注册，不要互相借用）
+2. **知识库目录**（二选一）：
    - 默认：在自己项目根建 `docs/outputs/knowledge_base/`
-   - 自定义：设环境变量 `EMBODIED_KB_DIR=<绝对路径>`
+   - 自定义：`export EMBODIED_KB_DIR=<绝对路径>`
+
+## marketplace 清单结构
+
+仓库根 `.claude-plugin/marketplace.json` 列出可装 plugin 及其版本：
+
+```json
+{
+  "name": "embodied-ai-research-marketplace",
+  "owner": { "name": "Turinginwonderland" },
+  "plugins": [
+    {
+      "name": "embodied-ai-research",
+      "version": "0.1.0",
+      "description": "具身智能研究助手：素材摄取→知识库裁决→按需报告（团队共享版）",
+      "source": "./"
+    }
+  ]
+}
+```
+
+`.claude-plugin/plugin.json` 是 plugin 自身身份声明，`.claude-plugin/marketplace.json` 是 marketplace 索引——两个文件作用不同、并存。
 
 ## 知识库不是 plugin 的一部分
 
