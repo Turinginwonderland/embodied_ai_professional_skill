@@ -27,14 +27,16 @@ Slash 命令（`commands/` 下）：
 通过 marketplace 模式安装——这是团队成员从任何位置 clone 仓库后都能用的标准流程：
 
 ```bash
-# 1. 把本仓库注册为 marketplace（指向 GitHub 仓库的 manifest）
-/plugin marketplace add Turinginwonderland/embodied-ai-professional-skill
+# 1. 把本仓库注册为 marketplace（用完整 HTTPS URL，SSH 在某些环境下不可用）
+/plugin marketplace add https://github.com/Turinginwonderland/embodied-ai-professional-skill.git
 
 # 2. 从 marketplace 装 plugin
 /plugin install embodied-ai-research
 ```
 
 **为什么不直接用 `/plugin install <路径>`**：直接 install 对路径结构要求严格，且每次都得带具体路径。marketplace 模式一次注册、永久可用，团队成员从哪个目录 clone 都行。
+
+**为何用完整 URL 而非 `owner/repo` 简写**：实测发现 `add Turinginwonderland/embodied-ai-professional-skill` 简写在当前 Claude Code 版本下走 SSH 协议，SSH 配错或 key 缺失会失败。改用 `https://...` 完整 URL 走 HTTPS，对认证要求最低（GitHub 凭据即可），团队成员无需配 SSH key。
 
 **本地 clone 仓库后也能用**：即使你只是想本地试用而不准备 push 到 GitHub，也建议先在 GitHub 上 fork 一份（个人私有仓库也行），然后用上面两条命令安装。这样 marketplace 模式不依赖你的本地路径，迁移/重装都更简单。
 
