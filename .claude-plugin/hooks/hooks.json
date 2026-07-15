@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"if(!process.env.FIRECRAWL_API_KEY){console.error('[embodied-ai-research] WARN: FIRECRAWL_API_KEY not set, firecrawl-mcp will not load. See README.')};process.exit(0)\" || true"
+          }
+        ]
+      }
+    ]
+  }
+}

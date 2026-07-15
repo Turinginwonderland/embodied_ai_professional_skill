@@ -13,9 +13,6 @@ __pycache__/
 .claude/**/*.local.json
 .claude/sh/
 
-# MCP 配置文件（含 API Key）
-.mcp.json
-
 # 环境变量（含 API Key）
 .env
 

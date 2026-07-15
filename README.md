@@ -42,8 +42,39 @@ Slash 命令（`commands/` 下）：
 
 ### 安装后还需设置
 
-1. **API key**：`export FIRECRAWL_API_KEY=fc-...`（每个使用者自己注册，不要互相借用）
-2. **知识库目录**（二选一）：
+> ⚠️ **先**设环境变量再启动 cc，否则 firecrawl-mcp 不会加载（`/reload-plugins` 会报 `0 plugin MCP servers`）。
+
+**1. API key**（每个使用者自己注册 firecrawl 拿 key，不要互相借用）：
+
+Windows PowerShell（永久，对当前用户）：
+
+```powershell
+[System.Environment]::SetEnvironmentVariable('FIRECRAWL_API_KEY', 'fc-...', 'User')
+# 重新打开 PowerShell 才生效
+```
+
+Windows PowerShell（仅当前会话）：
+
+```powershell
+$env:FIRECRAWL_API_KEY = "fc-..."
+```
+
+Windows cmd（永久）：
+
+```cmd
+setx FIRECRAWL_API_KEY "fc-..."
+```
+
+macOS / Linux bash / zsh（永久，加到 `~/.bashrc` 或 `~/.zshrc`）：
+
+```bash
+echo 'export FIRECRAWL_API_KEY=fc-...' >> ~/.bashrc
+source ~/.bashrc
+```
+
+> 📌 **`.env` 文件不会被 Claude Code 自动加载给 MCP 用**——`${FIRECRAWL_API_KEY}` 占位符在 `npx firecrawl-mcp` 起进程那一刻求值，**只读 shell 进程环境**。`.env` 只能给本机其他脚本读，别指望 cc 自动 source。
+
+**2. 知识库目录**（二选一）：
    - 默认：在自己项目根建 `docs/outputs/knowledge_base/`
    - 自定义：`export EMBODIED_KB_DIR=<绝对路径>`
 
@@ -67,6 +98,8 @@ Slash 命令（`commands/` 下）：
 ```
 
 `.claude-plugin/plugin.json` 是 plugin 自身身份声明，`.claude-plugin/marketplace.json` 是 marketplace 索引——两个文件作用不同、并存。
+
+plugin 根的 `.mcp.json` 声明 firecrawl-mcp 服务器（`${FIRECRAWL_API_KEY}` 占位符，真实 key 由使用者 shell 环境提供），随 plugin 分发，无需使用者自己创建。
 
 ## 知识库不是 plugin 的一部分
 
